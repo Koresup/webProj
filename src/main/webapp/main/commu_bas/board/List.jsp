@@ -7,6 +7,18 @@
 
 <h2>농구 자유 게시판 리스트</h2>
 
+<form action="SearchList" method="post">
+	<select name="field" id="">
+        <option value="list">전체</option>
+        <option value="title">제목</option>
+        <option value="user_id">작성자</option>        
+      </select>
+
+		<input type="text" name = "search" />
+
+	<input type="submit"  value="검색"/>
+</form>
+
 <table border="">
 	<tr>
 		<td>글번호</td>
@@ -33,7 +45,7 @@
 	<tr>
 		<td colspan="6" align="center">
 			<c:if test="${pageStart > 1 }">
-				<a href="<c:url value="/commu_bas/board/List?page=${pageStart - 1 }"/>">[이전]</a>
+				<a href="<c:url value="/commu_bas/board/SearchList?page=${pageStart - 1 }&field=${param.field }&search=${param.search }"/>">[이전]</a>
 			</c:if>		
 			<c:forEach var="i" begin="${pageStart }" end="${pageEnd }" step="1">
 				<c:choose>
@@ -41,12 +53,12 @@
 						[${i }]
 					</c:when>
 					<c:otherwise>
-						<a href="<c:url value="/commu_bas/board/List?page=${i }"/>">${i }</a>		
+						<a href="<c:url value="/commu_bas/board/SearchList?page=${i }&field=${param.field }&search=${param.search }"/>">${i }</a>		
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
 			<c:if test="${pageEnd<pageTotal }">
-				<a href="<c:url value="/commu_bas/board/List?page=${pageEnd + 1 }"/>">[다음]</a>
+				<a href="<c:url value="/commu_bas/board/SearchList?page=${pageEnd + 1 }&field=${param.field }&search=${param.search }"/>">[다음]</a>
 			</c:if>		
 		</td>
 	</tr>
@@ -57,49 +69,3 @@
 		<a href="<c:url value="/commu_bas/board/InsertForm?page=${nowPage }"/>">글 작성</a>
 	</tr>
 </table>
-
-<div>
-	<form>
-		<fieldset>
-			<legend>글 검색 필드</legend>
-			<label>검색분류</label>
-				<select name="f">
-					<option value="title">제목</option>
-					<option value="user_id">작성자</option>
-					<option value="content">내용</option>
-				</select>
-			<label>검색어</label>
-				<input type="text" name= "q" value=""/>
-				<input type="submit" value="검색"/>
-		</fieldset>
-	</form>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

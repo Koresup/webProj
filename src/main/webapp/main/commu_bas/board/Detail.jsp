@@ -20,7 +20,7 @@
 	</tr>
 	<tr>
 		<td colspan="4">
-			<c:forTokens items="${dto.upfile }" 
+			<c:forTokens items="${dto.img }" 
 				delims="," var="ee" varStatus="no">
 				<img src="<c:url value="/uploadFile/commu_bas/board/${ee}"/>" alt="" />
 			</c:forTokens></td>
@@ -30,15 +30,15 @@
 		${dto.contentBr }</td>
 	</tr>
 	<tr>
-		<c:if test="${dto.upfile != null }">
+		<c:if test="${dto.img != null }">
 		<td>파일</td>
 		<td colspan="3">
 			<c:choose>
-				<c:when test="${dto.upfile }">
-					<img src="<c:url value="/uploadFile/commu_bas/board/${dto.upfile }"/>" alt="" />
+				<c:when test="${dto.img }">
+					<img src="<c:url value="/uploadFile/commu_bas/board/${dto.img }"/>" alt="" />
 				</c:when>
 				<c:otherwise>
-					<a href="<c:url value="/FileDown?fname=${dto.upfile }"/>"> ${dto.upfile }</a>
+					<a href="<c:url value="/FileDown?fname=${dto.img }"/>"> ${dto.img }</a>
 				</c:otherwise>
 			</c:choose>
 		</td>
@@ -58,7 +58,7 @@
  	<tr>
       <td colspan="4" align="center">
          <textarea name="comment_input" id="" cols="90" rows="5" style="resize:none;"></textarea>
-         <button onclick="CommentInsert()">댓글입력</button>
+         <button type="button" onclick="commentInsert()">댓글입력</button>
          <input type="hidden" name="post_id" value="${dto.post_id }" />
       </td>
    </tr>
@@ -71,7 +71,7 @@
       <textarea name="commentList" id="input_${comment_dto.comment_id}" cols="80" rows="3" style="resize:none;" disabled>${comment_dto.content}</textarea>
       </td>
       <td>${comment_dto.comment_writer } <input type="hidden" id="writer_${comment_dto.comment_id }" value="${comment_dto.comment_writer }" /></td>
-      <td><button name="commentEdit" idx_data="${comment_dto.comment_id}" onclick="commentModify(this)">수정</button></td>
+      <td><button type="button" name="commentEdit" idx_data="${comment_dto.comment_id}" onclick="commentModify(this)">수정</button></td>
    </tr>
    <tr>
       <td>
@@ -79,7 +79,7 @@
          <input type="hidden" id="reg_date_${comment_dto.comment_id }" value="${comment_dto.reg_date }" />
       </td>
       <td>
-         <button idx_data="${comment_dto.comment_id}" onclick="commentDelete(this)">삭제</button>
+         <button type="button" idx_data="${comment_dto.comment_id}" onclick="commentDelete(this)">삭제</button>
       </td>
    </tr>
    </c:forEach>
@@ -90,8 +90,9 @@
    src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
 function commentInsert(){
+	console.log("dklfjsldkf");
    var comment = document.getElementsByName("comment_input")[0].value;
-   location.href='/main/comment/Insert?post_id=${dto.post_id }&page=${nowPage }&user_id=${dto.user_id}&comment='+comment;
+   location.href='/proj_04_minsoo/comment/Insert?post_id=${dto.post_id }&page=${nowPage }&user_id=${dto.user_id}&comment='+comment;
 }
 
 function commentModify(me){
@@ -112,11 +113,12 @@ function commentModify(me){
       commentData.reg_date = $('#reg_date_'+$(me).attr('idx_data')).val();
                 
       $.ajax({
-         url:'/main/comment/Modify',
+         url:'/proj_04_minsoo/comment/Modify',
          data:commentData,
          type:'POST',
          success: function(result){
             alert("수정되었습니다.")
+            console.log(commentData);
          },
          error:function(e){
             console.log(e);
@@ -131,11 +133,10 @@ function commentDelete(me){
       commentData.comment_id = $(me).attr('idx_data');
                 
       $.ajax({
-         url:'/main/comment/Delete',
+         url:'/proj_04_minsoo/comment/Delete',
          data:commentData,
          type:'POST',
          success: function(result){
-            
             location.reload();
             alert("삭제되었습니다.")
          },

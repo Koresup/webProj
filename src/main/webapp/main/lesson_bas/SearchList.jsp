@@ -9,7 +9,7 @@
 
 <form action="SearchList" method="post">
 	<select name="field" id="">
-		<option value="list">전체</option>
+	    <option value="list">전체</option>
         <option value="sname">제목</option>
         <option value="category">카테고리</option>    
       </select>

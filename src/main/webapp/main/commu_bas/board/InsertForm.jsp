@@ -29,7 +29,12 @@
 			<td colspan="4"><textarea name="content" cols="75" rows="10" placeholder="게시글을 입력하세요"></textarea></td>
 		</tr>
 		<tr>
-			<td colspan="4"><input type="file" name="upfile" multiple/></td>
+			<td>이미지 첨부</td>
+			<td colspan="3"><input type="file" name="img" multiple/></td>
+		</tr>
+		<tr>
+			<td>파일 첨부</td>
+			<td colspan="3"><input type="file" name="upfile" multiple/></td>
 		</tr>
 		<tr>
 			<td colspan="2"><a href="<c:url value="/commu_bas/board/List"/>">목록으로</a></td>

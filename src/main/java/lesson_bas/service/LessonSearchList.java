@@ -6,20 +6,33 @@ import javax.servlet.http.HttpServletResponse;
 import lesson_bas.controller.LessonService;
 import lesson_bas.model.LessonDAO;
 
-public class LessonList implements LessonService{
+public class LessonSearchList implements LessonService{
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		int page = 	(int)request.getAttribute("nowPage");
+		String search = request.getParameter("search");
+		String field = "list";
 
+		if (!search.equals("")) {
+			field = request.getParameter("field");
+			System.out.println(field);
+		}
 		
 		int limit = 3; // 한 페이지당 게시물 갯수
 		int pageLimit = 3; // 페이지 번호 갯수
+		int total = 0;
 		
 		LessonDAO dao = new LessonDAO();
+		Object data = null;
 		
-		int total = dao.totalCnt();
+		if(field.equals("list")) {
+			total = dao.totalCntSearch(search);
+		}else {
+			total = dao.totalCntSearch(field, search);
+			System.out.println(total);
+		}
 		int pageTotal = total/limit;
 		
 		if (total%limit > 0) {
@@ -34,8 +47,14 @@ public class LessonList implements LessonService{
 			pageEnd = pageTotal;
 		}
 		
-		Object data = dao.list(start, limit);
+		if (field.equals("list")) {
+			data = dao.list(start, limit, search);
+		} else if (!field.equals("list") || field!=null) {
+			data = dao.list(start, limit, field, search);
+		}
 		
+		request.setAttribute("field", field);
+		request.setAttribute("search", search);
 		request.setAttribute("mainData", data);
 		request.setAttribute("mainUrl", "lesson_bas/List");
 		

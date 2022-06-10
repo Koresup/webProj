@@ -6,19 +6,32 @@ import javax.servlet.http.HttpServletResponse;
 import commu_bas.board.controller.BoardService;
 import commu_bas.board.model.BoardDAO;
 
-public class BoardList implements BoardService {
+public class BoardSearchList implements BoardService {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
 		int page = (int) request.getAttribute("nowPage");
+		String search = request.getParameter("search");
+		String field = "list";
+
+		if (!search.equals("")) {
+			field = request.getParameter("field");
+			System.out.println(field);
+		}
 
 		int limit = 5; // 한 페이지당 게시물 갯수
 		int pageLimit = 3; // 페이지 번호 갯수
+		int total = 0;
 
 		BoardDAO dao = new BoardDAO();
+		Object data = null;
 
-		int total = dao.totalCnt();
+		if (field.equals("list")) {
+			total = dao.totalCntSearch(search);
+		} else {
+			total = dao.totalCntSearch(field, search);
+		}
 		int pageTotal = total / limit;
 
 		if (total % limit > 0) {
@@ -33,15 +46,22 @@ public class BoardList implements BoardService {
 			pageEnd = pageTotal;
 		}
 
-		Object data = dao.list(start, limit);
+		if (field.equals("list")) {
+			data = dao.list(start, limit, search);
+		} else if (!field.equals("list") || field != null) {
+			data = dao.list(start, limit, field, search);
+		}
 
+		request.setAttribute("field", field);
+		request.setAttribute("search", search);
 		request.setAttribute("mainData", data);
-		request.setAttribute("mainUrl", "commu_bas/board/List");
+		request.setAttribute("mainUrl", "commu_bas/board/SearchList");
 
 		request.setAttribute("start", start);
 		request.setAttribute("pageTotal", pageTotal);
 		request.setAttribute("pageStart", pageStart);
 		request.setAttribute("pageEnd", pageEnd);
+
 	}
 
 }

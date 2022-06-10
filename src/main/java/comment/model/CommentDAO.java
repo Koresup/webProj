@@ -73,7 +73,7 @@ public class CommentDAO {
          pstmt.setString(2, dto.getComment_id());
          pstmt.setString(3, dto.getComment_writer());
          pstmt.setString(4, dto.getContent());
-         
+         System.out.println(dto);
          pstmt.executeUpdate();
          
       } catch (SQLException e) {

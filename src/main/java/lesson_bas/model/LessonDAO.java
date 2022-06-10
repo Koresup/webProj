@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import commu_bas.board.model.BoardDTO;
+
 
 public class LessonDAO {
 	
@@ -28,9 +30,8 @@ public class LessonDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-}
+	}
 
-	
 	public int totalCnt() {
 		
 		sql = "select count(*) from lesson";
@@ -48,6 +49,130 @@ public class LessonDAO {
 		}		
 		return 0;
 	}
+	
+	public int totalCntSearch(String search){
+		
+		sql = "select count(*) from lesson where sname like ? ";
+		
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1,"%"+search+"%");
+			rs = ptmt.executeQuery();
+			
+			rs.next();
+			
+			return rs.getInt(1);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int totalCntSearch(String field, String search){
+		
+		sql = "select count(*) from lesson where " + field + " and sname like ? ";
+		
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1,"%"+search+"%");
+			rs = ptmt.executeQuery();
+			
+			rs.next();
+			
+			return rs.getInt(1);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	
+	
+	public ArrayList<LessonDTO> list(int start, int limit, String field, String search) {
+		ArrayList<LessonDTO> res = new ArrayList<LessonDTO>();
+		
+		sql = "select * from lesson "
+				+ "where " + field + " like ? order by reg_date desc limit ?, ? ";
+		
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, "%"+search+"%");
+			ptmt.setInt(2, start);
+			ptmt.setInt(3, limit);
+			
+			rs = ptmt.executeQuery();
+		
+			while(rs.next()) {
+				
+				LessonDTO dto = new LessonDTO();
+				
+				dto.setNo(rs.getInt("no"));
+				dto.setPost_id(rs.getString("post_id"));
+				dto.setCategory(rs.getString("category"));
+				dto.setImg(rs.getString("img"));
+				dto.setSname(rs.getString("sname"));
+				dto.setLesson_time(rs.getString("lesson_time"));
+				dto.setManager_id(rs.getString("manager_id"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setLocation(rs.getString("location"));
+				res.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return res;
+		
+	}
+	
+
+	public ArrayList<LessonDTO> list(int start, int limit, String search) {
+		ArrayList<LessonDTO> res = new ArrayList<LessonDTO>();
+		
+		sql = "select * from lesson "
+				+ "where sname like ? order by reg_date desc limit ?, ? ";
+		
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, "%" + search + "%");
+			ptmt.setInt(2, start);
+			ptmt.setInt(3, limit);
+			
+			rs = ptmt.executeQuery();
+		
+			while(rs.next()) {
+				
+				LessonDTO dto = new LessonDTO();
+				
+				dto.setNo(rs.getInt("no"));
+				dto.setPost_id(rs.getString("post_id"));
+				dto.setCategory(rs.getString("category"));
+				dto.setImg(rs.getString("img"));
+				dto.setSname(rs.getString("sname"));
+				dto.setLesson_time(rs.getString("lesson_time"));
+				dto.setManager_id(rs.getString("manager_id"));
+				dto.setPrice(rs.getInt("price"));
+				dto.setLocation(rs.getString("location"));
+				
+				res.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return res;
+		
+	}
+	
+	
 	
 	public ArrayList<LessonDTO> list(int start, int limit) {
 		ArrayList<LessonDTO> res = new ArrayList<LessonDTO>();
@@ -135,19 +260,6 @@ public class LessonDAO {
 		
 	}
 	
-//	public void addCount(String post_id) {		
-//		sql = "update lesson set cnt = cnt + 1 where post_id =?";
-//		
-//		try {
-//			ptmt = con.prepareStatement(sql);
-//			ptmt.setString(1, post_id);
-//			ptmt.executeUpdate();
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//	}
 	
 	public void insert(LessonDTO dto) {	
 		

@@ -15,7 +15,7 @@ public class CommentDelete implements CommentService{
       
       
       
-      request.setAttribute("mainUrl", "commu_bas/board/PostDetail");
+      request.setAttribute("mainUrl", "commu_bas/board/Detail");
    }
 
 }

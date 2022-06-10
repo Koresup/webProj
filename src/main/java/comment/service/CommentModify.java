@@ -24,7 +24,7 @@ public class CommentModify implements CommentService{
          
          new CommentDAO().modify(dto);
          
-         request.setAttribute("mainUrl", "commu_bas/board/PostDetail");
+         request.setAttribute("mainUrl", "commu_bas/board/Detail");
    }
 
 }
