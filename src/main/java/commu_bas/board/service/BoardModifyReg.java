@@ -67,7 +67,6 @@ public class BoardModifyReg implements BoardService {
 			dto.setContent(map.get("content"));
 			dto.setUpfile(allImg);
 			dto.setUser_id(map.get("user_id"));
-			dto.setPw(map.get("pw"));
 			dto.setPost_id(map.get("post_id"));
 
 			int res = new BoardDAO().modify(dto);

@@ -248,7 +248,7 @@ public class BoardDAO {
 	public void insert(BoardDTO dto) {
 
 		sql = "insert into commu_Bas_board (head, title, content, "
-				+ "upfile, img,user_id, pw, post_id, reg_date, cnt) values " + "(?, ?, ?, ?, ?, ?, ?, ?, sysdate(), 0)";
+				+ "upfile, img,user_id, post_id, reg_date, cnt) values " + "(?, ?, ?, ?, ?, ?, ?, sysdate(), 0)";
 
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -259,8 +259,7 @@ public class BoardDAO {
 			ptmt.setString(4, dto.upfile);
 			ptmt.setString(5, dto.img);
 			ptmt.setString(6, dto.user_id);
-			ptmt.setString(7, dto.pw);
-			ptmt.setString(8, dto.post_id);
+			ptmt.setString(7, dto.post_id);
 
 			ptmt.executeUpdate();
 
@@ -277,7 +276,7 @@ public class BoardDAO {
 		int res = 0;
 
 		sql = "update commu_Bas_board set head =?, title =?, " + "content=?, upfile=?, img=?,user_id=? "
-				+ "where pw=? and post_id=? ";
+				+ "where post_id=? ";
 
 		try {
 			ptmt = con.prepareStatement(sql);
@@ -288,8 +287,7 @@ public class BoardDAO {
 			ptmt.setString(4, dto.getUpfile());
 			ptmt.setString(5, dto.getImg());
 			ptmt.setString(6, dto.getUser_id());
-			ptmt.setString(7, dto.getPw());
-			ptmt.setString(8, dto.getPost_id());
+			ptmt.setString(7, dto.getPost_id());
 
 			res = ptmt.executeUpdate();
 
@@ -306,16 +304,13 @@ public class BoardDAO {
 	public int delete(BoardDTO dto) {
 		int res = 0;
 
-		sql = "delete from commu_Bas_board where post_id=? and pw=?";
+		sql = "delete from commu_bas_board where post_id=? ";
 
 		try {
 			ptmt = con.prepareStatement(sql);
-
 			ptmt.setString(1, dto.post_id);
-			ptmt.setString(2, dto.pw);
-
 			res = ptmt.executeUpdate();
-
+System.out.println(res);
 		} catch (Exception e) {
 			e.printStackTrace();
 

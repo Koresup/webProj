@@ -21,16 +21,12 @@ public class BoardInsertReg implements BoardService {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
 		// 파일 업로드
-		String realImgPath = "";
-//		String realUpFilePath = "";
-		
-		String saveImgPath = "/Users/minsookim/Desktop/프로젝트/04_proj/proj_04_minsoo/proj_04_minsoo/src/main/webapp/uploadFile/commu_bas/board";
-//		String saveUpFilePath = "/Users/minsookim/Desktop/프로젝트/04_proj/proj_04_minsoo/proj_04_minsoo/src/main/webapp/uploadFile/commu_bas/board";
+		String realPath = "";
+		String savePath = "C:\\jsp_work\\member\\WebContent\\uploadFile\\market";
 		int maxSize = 10 * 1024 * 1024;
-
 		String type = "utf-8";
-		realImgPath = saveImgPath;
-//		realUpFilePath = saveUpFilePath;
+		
+		realPath = savePath;
 
 		String title = "";
 		String user_id = "";
@@ -43,7 +39,7 @@ public class BoardInsertReg implements BoardService {
 
 		try {
 			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-			diskFileItemFactory.setRepository(new File(realImgPath));
+			diskFileItemFactory.setRepository(new File(realPath));
 			diskFileItemFactory.setSizeThreshold(maxSize);
 			diskFileItemFactory.setDefaultCharset(type);
 			ServletFileUpload fileUpload = new ServletFileUpload(diskFileItemFactory);
@@ -62,7 +58,7 @@ public class BoardInsertReg implements BoardService {
 						String fileName = item.getName().substring(index + 1);
 						
 						// 이미지 || 문서 파일 나누기
-						File uploadFile = new File(realImgPath + separator + fileName);
+						File uploadFile = new File(realPath + separator + fileName);
 
 						allImg += fileName + ",";
 

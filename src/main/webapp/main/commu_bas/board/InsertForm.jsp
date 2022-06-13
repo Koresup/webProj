@@ -5,41 +5,73 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<h2>게시글 작성하기</h2>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        h2#main_title {
+            margin: 20px;
+        }
+        div#main_wrap{
+            width: 1243px;
+            height: auto;
+            margin-left:auto; 
+            margin-right:auto;
+        }
+        #commu_bas_board_post {
+            border: 1px solid #d7dce2;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 25px;
+        }
+        div#BTNsubmit {
+            text-align: right;
+        }
 
-<form action="InsertReg" method="post" enctype="multipart/form-data">
-	<table border="">
-		<tr>
-			<td rowspan="2">
-				<select name="head" id="">
-					<option value="none">=== 선택 ===</option>
-					<option value="want_human">용병 구인</option>
-					<option value="want_team">용병 구팀</option>
-				</select>
-			</td>
-			<td rowspan="2"><input type="text" name="title" placeholder="제목" /></td>
-			<td colspan="1"><input type="text" name="user_id" placeholder="ID"/></td>
-			<td colspan="1"><input type="text" name="pw" placeholder="PW"/></td>
-		</tr>
-		<tr>
-			<td>게시일자</td>
-			<td>조회</td>
-		</tr>
-		<tr>
-			<td colspan="4"><textarea name="content" cols="75" rows="10" placeholder="게시글을 입력하세요"></textarea></td>
-		</tr>
-		<tr>
-			<td>이미지 첨부</td>
-			<td colspan="3"><input type="file" name="img" multiple/></td>
-		</tr>
-		<tr>
-			<td>파일 첨부</td>
-			<td colspan="3"><input type="file" name="upfile" multiple/></td>
-		</tr>
-		<tr>
-			<td colspan="2"><a href="<c:url value="/commu_bas/board/List"/>">목록으로</a></td>
-			<td><input type="reset" value="초기화" /></td>
-			<td><input type="submit" value="작성" /></td>
-		</tr>
-	</table>
-</form>
+    </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+	<form action="InsertReg" method="post" enctype="multipart/form-data">
+    <div id="main_wrap">
+        <div><h2 id="main_title">농구 자유게시판 새글쓰기</h2></div>
+        <hr>
+        <div id="commu_bas_board_post">
+          <div class="mb-3 row">
+            <label for="title" class="col-sm-2 col-form-label">제목</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="title" name="title" placeholder="제목" >
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="content" class="col-sm-2 col-form-label">내용</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="content" name="content" rows="15" style="resize:none" placeholder="내용을 입력하세요"></textarea>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="addImg" class="col-sm-2 col-form-label">이미지 첨부</label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control" id="addImg" name="img" multiple>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="addFile" class="col-sm-2 col-form-label">파일 첨부 </label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control" id="addFile" name="upfile" multiple>
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="BTN" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10" id="BTNsubmit">
+                <input type="reset" value="초기화">
+                <input type="submit" value="등록">
+            </div>
+          </div>
+        </div>
+        <div id="post_bottom">
+
+        </div>
+    </div>   
+
+
+    </form>

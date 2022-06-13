@@ -2,21 +2,45 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2>글 수정 폼</h2>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        h2#main_title {
+            margin: 20px;
+        }
+        div#main_wrap{
+            width: 1243px;
+            height: auto;
+            margin-left:auto; 
+            margin-right:auto;
+        }
+        div#delete_table {
+        	margin: 30px;
+        }
+        
+    </style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<div id="main_wrap"><h2 id="main_title">글 수정 폼</h2></div>
 
 <form action="DeleteReg" method="post">
 	<input type="hidden" name="post_id" value="${param.post_id }" />
-	<table border="">
+	<input type="hidden" name="nowPage" value="${nowPage }"/>
+	
+	<div id="delete_table">
+	<table border="" width=600 align="center">
+		
 		<tr>
-			<td>비밀번호</td>
-			<td><input type="text" name="pw" /></td>
+			<th>삭제하시려면 "삭제"를 써주세요!</th>
+			<td><input type="text" name="deleteCheck" /></td>
 		</tr>
+		
 		<tr>
 			<td colspan="2" align="center">
-				<a href="<c:url value="/commu_bas/board/Detail?post_id=${param.post_id }&page=${nowPage }"/>">뒤로</a>
-				<input type="submit" value="삭제" />
-				<input type="hidden" name="nowPage" value="${nowPage }"/>				
+			<a href="<c:url value="/commu_bas/board/Detail?post_id=${param.post_id }&page=${nowPage}"/>">뒤로</a>
+			<input type="reset" value="취소" />
+			<input type="submit" value="삭제" />
+			
 			</td>
 		</tr>
 	</table>
+	</div>
 </form>

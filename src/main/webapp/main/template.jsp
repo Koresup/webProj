@@ -7,15 +7,11 @@
 <title>게시판</title>
 </head>
 <body>
-<h1>게시판</h1>
-
 
 <jsp:include page="top.jsp"/>
 <div>
 	<jsp:include page="${mainUrl}.jsp"/>
 </div>
-
-
 <jsp:include page="bottom.jsp"/>
 
 
