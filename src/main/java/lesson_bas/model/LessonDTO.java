@@ -148,24 +148,40 @@ public class LessonDTO {
 	public void setContents_info(String contents_info) {
 		this.contents_info = contents_info;
 	}
+	public String getContentsBr_info() {
+		return contents_info.replaceAll("\n", "<br>");
+	}
+	
 	public String getContents_detail() {
 		return contents_detail;
 	}
 	public void setContents_detail(String contents_detail) {
 		this.contents_detail = contents_detail;
 	}
+	public String getContentsBr_detail() {
+		return contents_detail.replaceAll("\n", "<br>");
+	}
+	
 	public String getContents_rule() {
 		return contents_rule;
 	}
 	public void setContents_rule(String contents_rule) {
 		this.contents_rule = contents_rule;
 	}
+	public String getContentsBr_rule() {
+		return contents_rule.replaceAll("\n", "<br>");
+	}
+	
 	public String getContents_refund() {
 		return contents_refund;
 	}
 	public void setContents_refund(String contents_refund) {
 		this.contents_refund = contents_refund;
 	}
+	public String getContentsBr_refund() {
+		return contents_refund.replaceAll("\n", "<br>");
+	}
+	
 	public String getImg() {
 		return img;
 	}

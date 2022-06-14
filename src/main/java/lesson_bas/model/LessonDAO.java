@@ -108,7 +108,7 @@ public class LessonDAO {
 				
 				LessonDTO dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
+				
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImg(rs.getString("img"));
@@ -117,7 +117,15 @@ public class LessonDAO {
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
 				dto.setLocation(rs.getString("location"));
+				dto.setMax_student(rs.getInt("max_student"));
+				dto.setOption1(rs.getBoolean("option1"));
+				dto.setOption2(rs.getBoolean("option2"));
+				dto.setOption3(rs.getBoolean("option3"));
+				dto.setOption4(rs.getBoolean("option4"));
+				dto.setOption5(rs.getBoolean("option5"));
+				
 				res.add(dto);
+				
 			}
 			
 		} catch (Exception e) {
@@ -149,7 +157,7 @@ public class LessonDAO {
 				
 				LessonDTO dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
+				
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImg(rs.getString("img"));
@@ -158,6 +166,13 @@ public class LessonDAO {
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
 				dto.setLocation(rs.getString("location"));
+				dto.setMax_student(rs.getInt("max_student"));
+				dto.setOption1(rs.getBoolean("option1"));
+				dto.setOption2(rs.getBoolean("option2"));
+				dto.setOption3(rs.getBoolean("option3"));
+				dto.setOption4(rs.getBoolean("option4"));
+				dto.setOption5(rs.getBoolean("option5"));
+
 				
 				res.add(dto);
 			}
@@ -190,7 +205,7 @@ public class LessonDAO {
 
 				LessonDTO dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
+				
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setCategory(rs.getString("category"));
 				dto.setImg(rs.getString("img"));
@@ -199,9 +214,16 @@ public class LessonDAO {
 				dto.setManager_id(rs.getString("manager_id"));
 				dto.setPrice(rs.getInt("price"));
 				dto.setLocation(rs.getString("location"));
+				dto.setMax_student(rs.getInt("max_student"));
+				dto.setOption1(rs.getBoolean("option1"));
+				dto.setOption2(rs.getBoolean("option2"));
+				dto.setOption3(rs.getBoolean("option3"));
+				dto.setOption4(rs.getBoolean("option4"));
+				dto.setOption5(rs.getBoolean("option5"));
+
 				
 				res.add(dto);
-								
+								System.out.println(dto);
 			}
 			
 		} catch (Exception e) {
@@ -228,7 +250,7 @@ public class LessonDAO {
 				
 				dto = new LessonDTO();
 				
-				dto.setNo(rs.getInt("no"));
+				
 				dto.setCategory(rs.getString("category"));
 				dto.setPost_id(rs.getString("post_id"));
 				dto.setSname(rs.getString("sname"));
@@ -290,7 +312,6 @@ public class LessonDAO {
 			ptmt.setInt(16, dto.getIntOption3());
 			ptmt.setInt(17, dto.getIntOption4());
 			ptmt.setInt(18, dto.getIntOption5());
-			
 			
 			ptmt.executeUpdate();
 			

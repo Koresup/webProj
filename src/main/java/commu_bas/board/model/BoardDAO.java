@@ -216,7 +216,7 @@ public class BoardDAO {
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setUpfile(rs.getString("upfile"));
-				dto.setUpfile(rs.getString("img"));
+				dto.setImg(rs.getString("img"));
 				dto.setReg_date(rs.getTimestamp("reg_date"));
 				dto.setCnt(rs.getInt("cnt"));
 			}
@@ -300,6 +300,25 @@ public class BoardDAO {
 		return res;
 
 	}
+	
+	public int modifyFile(String post_id) {
+		int res = 0;
+		
+		sql = "update postlist_market set img = ? where post_id = ?";
+
+		try {
+			ptmt = con.prepareStatement(sql);
+			ptmt.setString(1, "");
+			ptmt.setString(2, post_id);
+
+			res = ptmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return res;
+	}
 
 	public int delete(BoardDTO dto) {
 		int res = 0;
@@ -310,7 +329,7 @@ public class BoardDAO {
 			ptmt = con.prepareStatement(sql);
 			ptmt.setString(1, dto.post_id);
 			res = ptmt.executeUpdate();
-System.out.println(res);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 

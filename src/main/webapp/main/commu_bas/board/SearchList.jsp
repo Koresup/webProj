@@ -101,7 +101,7 @@ td.BTNnewWrite {
 			<tbody>
 				<c:forEach var="dto" items="${mainData }" varStatus="no">
 					<tr>
-						<td class="num" scope="row">${start + no.index }</td>
+						<td class="num" scope="row">${start+1 + no.index }</td>
 						<td class="title"><a href="<c:url value="/commu_bas/board/Detail?post_id=${dto.post_id }&page=${nowPage }"/>">${dto.title }</a></td>
 						<td class="user_id">${dto.user_id }</td>
 						<td class="reg_date"><fmt:formatDate value="${dto.reg_date }" pattern="yyyy-MM-dd" /></td>

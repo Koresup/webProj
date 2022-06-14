@@ -11,7 +11,6 @@ public class LessonDetail implements LessonService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
-//		int id = Integer.parseInt(request.getParameter("id"));
 		String post_id = request.getParameter("post_id");
 		LessonDAO dao = new LessonDAO();
 		

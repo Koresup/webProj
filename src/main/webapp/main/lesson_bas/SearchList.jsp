@@ -4,70 +4,230 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    div#top {
+      width: 100%;
+      height: 100px;
+      background: #ff953e;
+    }
 
-<h2>농구 레슨 리스트</h2>
+    h2#main_title {
+      margin: 20px;
+    }
 
-<form action="SearchList" method="post">
-	<select name="field" id="">
-	    <option value="list">전체</option>
-        <option value="sname">제목</option>
-        <option value="category">카테고리</option>    
-      </select>
-	
-		<input type="text" name = "search" />
-	
-	<input type="submit"  value="검색"/>
-</form>
+    div#main_wrap {
+      width: 1243px;
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-<table border="">
-	<tr>
-		<td>번호</td>
-		<td>카테고리</td>
-		<td>이미지</td>
-		<td>레슨명</td>
-		<td>레슨시간</td>
-		<td>담당자</td>
-		<td>수강료</td>
-		<td>지점</td>
-	</tr>
+    div#searching {
+      margin: 5px;
+      text-align: center;
+    }
+
+    div#bottom {
+      width: 100%;
+      height: 100px;
+      background: #ff953e;
+    }
+
+
+    div.gym_list {
+      margin-bottom: 20px;
+      margin-left: 0px;
+      border: 1px solid black;
+    }
+
+    div#contents_wrap div.gym_list:last-child {
+      margin-bottom: 0px;
+    }
+
+    div.gym_item_img {
+      padding: 0px;
+    }
+
+    div.gym_item_img>img {
+      padding: 0px;
+      margin: 0px;
+            
+    }
+
+    div.gym_item_info {
+      margin-left: 0px;
+      padding: 0px;
+    }
+
+    div.gym_info_date {
+      font-size: 20px;
+      padding: 0px;
+      padding-left: 20px;
+      margin-top: 5px;
+    }
+
+    div.gym_info_address {
+      text-align: right;
+      line-height: 50px;
+      padding-right: 20px;
+    }
+
+    div.gym_info_bottom {
+      margin-top: 20px;
+    }
+
+    div.gym_info_bottom_row {
+      width: 95%;
+      margin: 0px auto;
+    }
+
+    div.res_time_div {
+      text-align: center;
+    }
+
+    div.res_time_text {
+      float: left;
+      background: #eee;
+    }
+
+    div.option_div {
+      width: 500px;
+      margin: 0px auto;
+      background: #eee;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+    .text-center {
+      margin: 10px 0px 10px 0px;
+    }
+    .enrollment {
+      width: 100%;
+      margin: 15px auto auto auto ;
+    }
+    .enrollment>button{
+      width: 30%;
+      margin: auto;
+      display: block;
+    }
+    
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div id="main_wrap">
+	<div>
+		<h2 id="main_title">농구 레슨 리스트</h2>
+	</div>
+	<hr>
+	<div id="lesson_bas_list">
 	
-	
-	<c:forEach var="dto" items="${mainData }" varStatus="no">
-	<tr>
-		<td>${start + no.index }</td>
-		<td>${dto.category }</td>
-		<td><img src="<c:url value="/uploadFile/lesson_bas/${fn:split(dto.img, ',')[0]}"/>" alt="" /> </td>
-		<td><a href="<c:url value="/lesson_bas/Detail?post_id=${dto.post_id }&page=${nowPage }"/>">${dto.sname }</a></td>
-		<td>${dto.lesson_time }</td>
-		<td>${dto.manager_id }</td>
-		<td>${dto.price }</td>
-		<td>${dto.location }</td>		
-	</tr>
-	</c:forEach>
-	
-	<tr>
-		<td colspan="8" align="center">
+		<c:forEach var="dto" items="${mainData }" varStatus="no">
+		<main class="flex-shrink-0">
+			<div id="contents_wrap">
+				<div class="row gym_list">
+					<div class="col-sm-5 gym_item_img">
+						<!-- 이미지 크기 고정 520x290 -->
+						<img src="<c:url value="/uploadFile/lesson_bas/${fn:split(dto.img, ',')[0]}"/>" class="figure-img img-fluid rounded;"
+							alt="" style="width: 520px; height: 290px;">
+					</div>
+
+					<div class="col-sm-7 right-note gym_item_info">
+						<div class="row">
+							<div class="col-sm-4 gym_info_date">${dto.lesson_time }</div>
+							<div class="col gym_info_address">${dto.location }</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<p class="text-center fs-3 fw-bold">
+									<a href="<c:url value="/lesson_bas/Detail?post_id=${dto.post_id }&page=${nowPage }"/>">${dto.sname }</a>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col gym_info_bottom">
+								<div class="row gym_info_bottom_row">
+									<div class="lesson_category" style="float: left; width: 33%;" align="center">슛팅</div>
+									
+									<div class="lesson_expense" style="float: left; width: 34%;" align="center">${dto.price }</div>
+									<div class="max_student" style="float: left; width: 33%;" align="left">모집인원 : 1명 / ${dto.max_student }명</div>
+									
+									<div class="row ">
+										<div class="row option_div">
+											<div class="col"
+												style="background: white; margin: 5px; text-align: center;">주차장</div>
+											<div class="col"
+												style="background: white; margin: 5px; text-align: center;">샤워장</div>
+											<div class="col"
+												style="background: white; margin: 5px; text-align: center;">냉/난방</div>
+											<div class="col"
+												style="background: white; margin: 5px; text-align: center;">정수기</div>
+											<div class="col"
+												style="background: white; margin: 5px; text-align: center;">마루바닥</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="enrollment">
+							<button>
+								<a href="수강신청 링크"></a>신청하기
+							</button>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+			</main>
+			</c:forEach>
+			<br />
+			<div id="newPost" align="right">
+				<a href="<c:url value="/lesson_bas/InsertForm?page=${nowPage }"/>"><button>새글쓰기</button></a>
+			</div>
+			<hr />
+			<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
 			<c:if test="${pageStart > 1 }">
-				<a href="<c:url value="/lesson_bas/SearchList?page=${pageStart - 1 }&field=${param.field }&search=${param.search }"/>">[이전]</a>
-			</c:if>		
+				<li class="page-item">
+					<a class="page-link" href="<c:url value="/lesson_bas/SearchList?page=${pageStart - 1 }&field=${param.field }&search=${param.search }"/>">이전</a>
+				</li>
+			</c:if>
 			<c:forEach var="i" begin="${pageStart }" end="${pageEnd }" step="1">
 				<c:choose>
-					<c:when test="${nowPage ==i }">
-						[${i }]
+					<c:when test="${nowPage == i }">
+						<li class="page-item disabled">
+							<a class="page-link" href="<c:url value="/lesson_bas/SearchList?page=${i }&field=${param.field }&search=${param.search }"/>">${i }</a>
+						</li>
 					</c:when>
 					<c:otherwise>
-						<a href="<c:url value="/lesson_bas/SearchList?page=${i }&field=${param.field }&search=${param.search }"/>">${i }</a>		
+						<li class="page-item"><a class="page-link" href="<c:url value="/lesson_bas/SearchList?page=${i }&field=${param.field }&search=${param.search }"/>">${i }</a>
+						</li>
 					</c:otherwise>
 				</c:choose>
+	
 			</c:forEach>
 			<c:if test="${pageEnd<pageTotal }">
-				<a href="<c:url value="/lesson_bas/SearchList?page=${pageEnd + 1 }&field=${param.field }&search=${param.search }"/>">[다음]</a>
-			</c:if>		
-		</td>
-	</tr>
+				<li class="page-item"><a class="page-link"
+					href="<c:url value="/lesson_bas/SearchList?page=${pageEnd + 1 }&field=${param.field }&search=${param.search }"/>">다음</a>
+				</li>
+			</c:if>
+		</ul>
+		<hr />
+	</nav>
 	
-	<tr>
-		<td colspan="8" align="right">
-		<a href="<c:url value="/lesson_bas/InsertForm?page=${nowPage }"/>">글 작성</a>
-	</tr>
-</table>
+<div id="searching">
+    <form action="SearchList" method="post">
+      <select name="field" id="">
+        <option value="list">전체</option>
+        <option value="sname">제목</option>
+        <option value="category">카테고리</option>
+      </select>
+      <input type="text" name="search" />
+      <input type="submit" value="검색" />
+    </form>
+  </div>
+	</div>
+</div>
+<br>

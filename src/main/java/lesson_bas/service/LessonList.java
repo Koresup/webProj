@@ -35,6 +35,7 @@ public class LessonList implements LessonService{
 		}
 		
 		Object data = dao.list(start, limit);
+		System.out.println("ㄴ"+data);
 		
 		request.setAttribute("mainData", data);
 		request.setAttribute("mainUrl", "lesson_bas/List");

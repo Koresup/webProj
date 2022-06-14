@@ -15,7 +15,6 @@ public class BoardDetail implements BoardService {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 
-//		int id = Integer.parseInt(request.getParameter("id"));
 		String post_id = request.getParameter("post_id");
 		BoardDAO dao = new BoardDAO();
 		ArrayList<CommentDTO> comment_dto = new CommentDAO().list(post_id);

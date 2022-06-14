@@ -70,9 +70,7 @@ span#next_btn {
 }
 
 /* 옵션 이미지 */
-.info_option {
-    padding-top: 60px;
-}
+
 .info_option>article {
     text-align: center;
 }
@@ -142,4 +140,40 @@ dd.list_detail{
 .bottom_button {
     text-align: right;
     margin-right: 50px;
+}
+ul,
+li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+ul#img_list {
+  width: 700px;
+}
+
+ul#img_list li {
+  float: left;
+  margin: 10px;
+}
+
+div#grayLayer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: black;
+  opacity: 0;
+}
+
+div#overLayer {
+  width: 650px;
+  height: 443px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -221px;
+  margin-left: -325px;
+  display: none;
 }

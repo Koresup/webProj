@@ -7,27 +7,28 @@ public class BoardDTO {
 
 	int cnt;
 	String post_id;
-	String head, title, content, upfile, img, user_id, pw;
+	String head, title, content, upfile, img, user_id, pw, allfile;
 	Date reg_date;
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
-	}
 
 	public BoardDTO() {
 	}
 
-	public BoardDTO(String title, String user_id, String post_id, String pw, String content, String img) {
+	public BoardDTO(String title, String user_id, String post_id, String pw, String content, String allfile) {
 		this.title = title;
 		this.user_id = user_id;
 		this.post_id = "commu_bas_board" + System.currentTimeMillis();
 		this.pw = pw;
 		this.content = content;
-		this.img = img;
+		this.allfile = allfile;
+	}
+
+	
+	public String getAllfile() {
+		return allfile;
+	}
+
+	public void setAllfile(String allfile) {
+		this.allfile = allfile;
 	}
 
 	public String getPost_id() {
@@ -74,7 +75,7 @@ public class BoardDTO {
 		this.content = content;
 	}
 
-	// 조건 3가지 달아주기
+	//  파일 || 조건 3가지 달아주기
 	public String getUpfile() {
 		if (upfile == null || upfile.trim().equals("") || upfile.trim().equals("null")) {
 			return null;
@@ -86,12 +87,33 @@ public class BoardDTO {
 		this.upfile = upfile;
 	}
 
-	public boolean isImg() {
-		if (getUpfile() == null) {
+	public boolean isUpfile(String[] file, int cnt) {
+		if (file == null) {
 			return false;
 		}
-		return Pattern.matches(".*[.](jpg|jpeg|png|bmp|gif)", upfile.toLowerCase());
+		return Pattern.matches(".*[.](docx|xlsx|hwp|txt)", file[cnt].toLowerCase());
 	}
+	
+	// 이미지 || 조건 3가지 달아주기
+	public String getImg() {
+		if (img == null || img.trim().equals("") || img.trim().equals("null")) {
+			return null;
+		}
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public boolean isImg(String[] file, int cnt) {
+		if (file == null) {
+			return false;
+		}
+		return Pattern.matches(".*[.](jpg|jpeg|png|bmp|gif)", file[cnt].toLowerCase());
+	}
+	
+	
 
 	public String getUser_id() {
 		return user_id;
@@ -120,7 +142,9 @@ public class BoardDTO {
 	@Override
 	public String toString() {
 		return "BoardDTO [cnt=" + cnt + ", post_id=" + post_id + ", head=" + head + ", title=" + title + ", content="
-				+ content + ", upfile=" + upfile + ", img=" + img + ", user_id=" + user_id + ", pw=" + pw
-				+ ", reg_date=" + reg_date + "]";
+				+ content + ", upfile=" + upfile + ", img=" + img + ", user_id=" + user_id + ", pw=" + pw + ", allfile="
+				+ allfile + ", reg_date=" + reg_date + "]";
 	}
+
+	
 }

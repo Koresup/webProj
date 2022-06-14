@@ -49,15 +49,15 @@
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="addImg" class="col-sm-2 col-form-label">이미지 첨부</label>
+            <label for="img" class="col-sm-2 col-form-label">이미지 첨부</label>
             <div class="col-sm-10">
-              <input type="file" class="form-control" id="addImg" name="img" multiple>
+              <input type="file" class="form-control" id="img" name="img" multiple>
             </div>
           </div>
           <div class="mb-3 row">
-            <label for="addFile" class="col-sm-2 col-form-label">파일 첨부 </label>
+            <label for="upfile" class="col-sm-2 col-form-label">파일 첨부 </label>
             <div class="col-sm-10">
-              <input type="file" class="form-control" id="addFile" name="upfile" multiple>
+              <input type="file" class="form-control" id="upfile" name="upfile" multiple>
             </div>
           </div>
           <div class="mb-3 row">

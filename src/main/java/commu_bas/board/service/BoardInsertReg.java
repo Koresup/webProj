@@ -1,6 +1,7 @@
 package commu_bas.board.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class BoardInsertReg implements BoardService {
 
 		// 파일 업로드
 		String realPath = "";
-		String savePath = "C:\\jsp_work\\member\\WebContent\\uploadFile\\market";
+		String savePath = "/Users/minsookim/Desktop/프로젝트/04_proj/proj_04_minsoo/proj_04_minsoo/src/main/webapp/uploadFile/commu_bas/board";
 		int maxSize = 10 * 1024 * 1024;
 		String type = "utf-8";
 		
@@ -34,6 +35,8 @@ public class BoardInsertReg implements BoardService {
 		String pw = "";
 		String content = "";
 		String allImg = "";
+		String upfile = "";
+		String allfile = "";
 
 		HashMap<String, String> list = new HashMap<String, String>();
 
@@ -53,14 +56,12 @@ public class BoardInsertReg implements BoardService {
 				} else {
 					if (item.getSize() > 0) {
 						String separator = File.separator;
-						System.out.println();
 						int index = item.getName().lastIndexOf(separator);
 						String fileName = item.getName().substring(index + 1);
-						
 						// 이미지 || 문서 파일 나누기
 						File uploadFile = new File(realPath + separator + fileName);
-
-						allImg += fileName + ",";
+						
+						allfile += fileName + ",";
 
 						item.write(uploadFile);
 
@@ -74,10 +75,23 @@ public class BoardInsertReg implements BoardService {
 			pw = list.get("pw");
 			content = list.get("content");
 
-			System.out.println(allImg);
 
-			BoardDTO dto = new BoardDTO(title, user_id, post_id, pw, content, allImg);
+			BoardDTO dto = new BoardDTO(title, user_id, post_id, pw, content, allfile);
 
+			String[] fileList = dto.getAllfile().split(",");
+			
+			
+			for(int i =0; i<fileList.length; i++) {
+				if(dto.isImg(fileList, i)) {
+					allImg += fileList[i]+",";
+				} else if(dto.isUpfile(fileList, i)) {
+					upfile += fileList[i]+",";
+				}
+			}
+			dto.setImg(allImg);
+			dto.setUpfile(upfile);
+			
+			
 			new BoardDAO().insert(dto);
 
 		} catch (Exception e) {

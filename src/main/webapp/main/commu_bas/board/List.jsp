@@ -72,7 +72,7 @@ td.cnt {
 
 td.paging {
 	text-align: center;
-	padding-top: 25px;
+	
 }
 
 td.writing {
@@ -106,7 +106,7 @@ td.BTNnewWrite {
 			<tbody>
 				<c:forEach var="dto" items="${mainData }" varStatus="no">
 					<tr>
-						<td class="num" scope="row">${start + no.index }</td>
+						<td class="num" scope="row">${start+1 + no.index }</td>
 						<td class="title"><a href="<c:url value="/commu_bas/board/Detail?post_id=${dto.post_id }&page=${nowPage }"/>">${dto.title }</a></td>
 						<td class="user_id">${dto.user_id }</td>
 						<td class="reg_date"><fmt:formatDate value="${dto.reg_date }" pattern="yyyy-MM-dd" /></td>
@@ -123,27 +123,35 @@ td.BTNnewWrite {
 				
 				<!-- 페이징 -->
 				<tr>
-					<td class="paging" colspan="5">
-						<nav aria-label="Page navigation example">
-				            <ul class="pagination justify-content-center">
+					<td class="paging" colspan="5" >			
+					<nav aria-label="Page navigation example">
+						<ul class="pagination justify-content-center">
 							<c:if test="${pageStart > 1 }">
-								<li class="page-item disabled"><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${pageStart - 1 }&field=${param.field }&search=${param.search }"/>">[이전]</a></li>
-							</c:if>	
+								<li class="page-item">
+									<a class="page-link" href="<c:url value="List?page=${pageStart-1 }&dateSet=${dateSet }"/>">이전</a>
+								</li>
+							</c:if>
 							<c:forEach var="i" begin="${pageStart }" end="${pageEnd }" step="1">
 								<c:choose>
-									<c:when test="${nowPage ==i }">
-				                        <li class="page-item"><a class="page-link" href="#">${i }</a></li>
+									<c:when test="${nowPage == i }">
+										<li class="page-item disabled"><a class="page-link" href="<c:url value="List?page=${i }&dateSet=${dateSet }"/>">${i }</a>
+										</li>
 									</c:when>
 									<c:otherwise>
-										<li class="page-item"><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${i }&field=${param.field }&search=${param.search }"/>">${i }</a></li>
+										<li class="page-item">
+											<a class="page-link" href="<c:url value="List?page=${i }&dateSet=${dateSet }"/>">${i }</a>
+										</li>
 									</c:otherwise>
 								</c:choose>
+				
 							</c:forEach>
 							<c:if test="${pageEnd<pageTotal }">
-								<li class="page-item"><a class="page-link" href="<c:url value="/commu_bas/board/SearchList?page=${pageEnd + 1 }&field=${param.field }&search=${param.search }"/>">[다음]</a></li>
-							</c:if>	
-				            </ul>
-			            </nav>
+								<li class="page-item">
+									<a class="page-link" href="<c:url value="List?page=${pageEnd+1 }&dateSet=${dateSet }"/>">다음</a>
+								</li>
+							</c:if>
+						</ul>
+					</nav>
 					</td>
 				</tr>
 
@@ -151,6 +159,7 @@ td.BTNnewWrite {
 
 		</table>
 	</div>
+	
 	<div id="searching">
 		<form action="SearchList" method="post">
 	<select name="field" id="">
